@@ -18,6 +18,8 @@ class addUrl:
     page = {};
     def __init__(self):
         pass;
+        
+    # {페이지 이름 : {url : '', query : ''}}
     def setPage(self,name,url,*querys):
         self.page[name] = {};
         self.page[name]['url'] = url;
@@ -32,17 +34,27 @@ class addUrl:
             query += t;
             index+=1;
         self.page[name]['query'] = query;
-    def getQueryParam(self,name,id,value):
+        
+    def getQueryParam(self,name,id):
         patt = re.compile(id + '=[^&]*');
         param = self.page[name]['query'];
-        print(param);
-        print(patt);
         param = patt.search(param);
         return param;
+    def setQueryparam(self,name,id,value):
+    		patt = re.compile(id + '=[^&]*');
+    		param = self.getQueryParam(name,id).group();
+    		sep = param.index('=');
+    		val = param[sep+1:];
+    		modify = param.replace(val,value);
+    		self.page[name]['query'] = self.page[name]['query'].replace(param,modify);
         
         
 t = customHtmlParser('https://torrentkim12.com/');
 page = addUrl();
 page.setPage('search','bbs/s.php','k=무한도전','page=1');
-test = page.getQueryParam('search','k','');
-print(test);
+
+page.setQueryparam('search','k','수정하였음.')
+test = page.getQueryParam('search','k');
+
+
+

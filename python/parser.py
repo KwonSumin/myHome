@@ -55,6 +55,8 @@ page.setPage('search','bbs/s.php','k=무한도전','page=1');
 
 page.setQueryparam('search','k','수정하였음.')
 test = page.getQueryParam('search','k');
+print(page.page)
 
+# https://autohotkey.com/download/ahk-install.exe
 
-
+requests.get('https://autohotkey.com/download/ahk-install.exe');

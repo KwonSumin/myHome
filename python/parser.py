@@ -59,4 +59,4 @@ print(page.page)
 
 # https://autohotkey.com/download/ahk-install.exe
 
-requests.get('https://autohotkey.com/download/ahk-install.exe');
+r = requests.get('https://autohotkey.com/download/ahk-install.exe');

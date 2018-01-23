@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="POST" action="/login/login.do" >
+	<form method="POST" action="<%=request.getContextPath() %>/login/login.do" >
 		<input type="text" name="user_id"/>
 		<input type="password" name="password" />
-		<submit value="login"/>
+		<input type="submit" value="login"/>
 	</form>
 </body>
 </html>

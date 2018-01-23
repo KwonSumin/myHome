@@ -1,2 +1,3 @@
 
 src/main/webapp/WEB-INF/spring/appServlet/mysql.xml
+target/myhome-1.0.0-BUILD-SNAPSHOT/WEB-INF/spring/appServlet/mysql.xml

@@ -1,5 +1,7 @@
 package co.kr.myhome.login;
 
+import co.kr.utils.security.SHA256Util;
+
 public class UserVO {
 	private Integer seq;
 	private String user_id;
@@ -26,8 +28,8 @@ public class UserVO {
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String password) throws Exception{
+		this.password = SHA256Util.getEncryption(password);
 	}
 	public String getUser_group() {
 		return user_group;

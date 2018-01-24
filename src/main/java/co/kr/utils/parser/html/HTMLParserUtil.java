@@ -13,7 +13,7 @@ public class HTMLParserUtil {
 	
 	public static void main(String[] args) throws Exception {
 		
-		Document doc = getDocument("https://torrentkim12.com/");
+		Document doc = getDocument("https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0030.xfdl&gv_menuId=1010202&gv_param=LCC:Y,TAB_PAGE:2,UPP_AIS_TP_CD:05#MN::CLCC_MN_0010:");
 		
 		System.out.println(doc.html());
 	}

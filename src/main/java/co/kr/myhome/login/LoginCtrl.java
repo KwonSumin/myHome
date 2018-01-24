@@ -53,6 +53,20 @@ public class LoginCtrl {
 		doWriteLogin(session, vo);
 		return mav;
 	}
+	
+	@RequestMapping(value="/login/memberJoin")
+	public ModelAndView memberJoin(UserVO vo) throws Exception{
+		return new ModelAndView("/user/memberJoin");
+	}
+	
+	@RequestMapping(value="/login/memberJoin.do")
+	public ModelAndView doMemberJoin(UserVO vo) throws Exception{
+		ModelAndView mav = new ModelAndView("/user/memberJoin");
+		System.out.println(vo);
+		loginService.memberJoin(vo);
+		return mav;
+	}
+	
 	private void doWriteLogin(HttpSession session,UserVO vo) throws Exception{
 		HashMap arg = new HashMap();
 		arg.put("vo", vo);

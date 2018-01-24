@@ -30,4 +30,9 @@ public class LoginService {
 		}
 		return true;
 	}
+	
+	public boolean memberJoin(UserVO vo) throws Exception{
+		//commonDAO.selectOne("co.kr.myhome.user.join",vo);
+		return true;
+	}
 }

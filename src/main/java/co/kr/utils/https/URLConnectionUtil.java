@@ -3,12 +3,16 @@ package co.kr.utils.https;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLDecoder;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -31,39 +35,45 @@ public class URLConnectionUtil {
 		//String url = "https://torrentkim12.com/bbs/download.php?bo_table=torrent_variety&wr_id=853422&no=0";
 		//downloadFile(url,"c:/test/test","아는형님.torrent");
 		
-    	getHttpsConnection("https://apply.lh.or.kr/LH/index.html?gv_url=SIL::CLCC_SIL_0030.xfdl&gv_menuId=1010202&gv_param=LCC:Y,TAB_PAGE:2,UPP_AIS_TP_CD:05#MN::CLCC_MN_0010:");
+    	getHttpsConnection("https://apply.lh.or.kr/lhCmcNoSessionAdapter.lh?serviceID=OCMC_LCC_SIL_SILSNOT_L0001","https");
     	
 	}
     
-    public static void getHttpsConnection(String urlStr)
-        throws IOException {
-            URL url = new URL(urlStr);
-            HttpsURLConnection httpsConn = (HttpsURLConnection) url.openConnection();
-            
-            //헤더값 추가 ( 해더값 없을시 403에러 내뱉는 사이트 있음)
-            httpsConn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-            httpsConn.setRequestProperty("Accept-Charset", "windows-949,utf-8;q=0.7,*;q=0.3");
-            httpsConn.setRequestProperty("Accept-Encoding", "gzip,deflate,sdch");
-            httpsConn.setRequestProperty("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4");
-            httpsConn.setRequestProperty("Connection", "keep-alive");
-            httpsConn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7");
-            int responseCode = httpsConn.getResponseCode();
-            if(responseCode == HttpsURLConnection.HTTP_OK){
-            	
-            	InputStream in = httpsConn.getInputStream();
-            	BufferedReader reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
-            	
-            	String temp;
-            	String result = "";
-            	while( (temp = reader.readLine()) != null ) {
-            		System.out.println(temp);
-            		result += temp + "\n";
-            	}
-            	
-            	
-            } else {
-            	System.out.println(httpsConn.getResponseMessage());
-            }
+    public static URLConnection setDefaultHeaders(URLConnection conn){
+        //헤더값 추가 ( 해더값 없을시 403에러 내뱉는 사이트 있음)
+        conn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+        conn.setRequestProperty("Accept-Charset", "windows-949,utf-8;q=0.7,*;q=0.3");
+        conn.setRequestProperty("Accept-Encoding", "gzip,deflate,sdch");
+        conn.setRequestProperty("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4");
+        conn.setRequestProperty("Connection", "keep-alive");
+        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7");
+        conn.setRequestProperty("Cache-Control", "no-cache, no-store");
+        return conn;
+    }
+    
+    public static void writeBody(URLConnection conn,String str) throws Exception{
+    	conn.setDoOutput(true);
+    	OutputStream out = conn.getOutputStream();
+    	BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
+    	writer.write(str);
+    }
+    public static BufferedReader getReader(URLConnection conn) throws Exception {
+    	InputStream in = conn.getInputStream();
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+    	return reader;
+    }
+    public static URLConnection getHttpsConnection(String urlStr,String protocol)
+        throws IOException, Exception {
+        URL url = new URL(urlStr);
+        URLConnection conn = null;
+        if( protocol.equalsIgnoreCase("https"))  {
+        	conn = ( HttpsURLConnection )url.openConnection();
+        } else if( protocol.equalsIgnoreCase("http") ){
+        	conn = ( HttpURLConnection )url.openConnection();
+        } else {
+        	throw new Exception("http,https만가능합니다.");
+        }
+        return conn;
     }
     
     public static void downloadFile(String fileURL, String saveDir,String fileName)

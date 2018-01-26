@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 
 public class SHA256Util {
 	public static void main(String[] args) throws Exception{
-		System.out.println(SHA256Util.getEncryption("test"));
+		System.out.println(SHA256Util.getEncryption("tnals1459"));
 	}
 	public static String getEncryption(String str) throws Exception{
 		StringBuffer hexString = new StringBuffer();

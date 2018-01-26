@@ -8,10 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="POST" action="<%=request.getContextPath() %>/login/login.do" >
-		<input type="text" name="user_id"/>
-		<input type="password" name="password" />
-		<input type="submit" value="login"/>
-	</form>
+	<c:if test="{sessionScope.id == null}">
+		<form method="POST" action="<%=request.getContextPath() %>/login/login.do" >
+			<input type="text" name="user_id"/>
+			<input type="password" name="password" />
+			<input type="submit" value="login"/>
+		</form>
+	</c:if>
 </body>
 </html>

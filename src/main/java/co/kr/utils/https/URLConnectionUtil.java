@@ -14,6 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
  
@@ -35,19 +38,53 @@ public class URLConnectionUtil {
 		//String url = "https://torrentkim12.com/bbs/download.php?bo_table=torrent_variety&wr_id=853422&no=0";
 		//downloadFile(url,"c:/test/test","아는형님.torrent");
 		
-    	getHttpsConnection("https://apply.lh.or.kr/lhCmcNoSessionAdapter.lh?serviceID=OCMC_LCC_SIL_SILSNOT_L0001","https");
+    	HttpURLConnection conn = (HttpURLConnection) getConnection("http://localhost:8080/myhome/login/login.do?user_id=admin&password=tnals1459", "http");
+    	conn.setRequestMethod("POST");
+    	conn.setDoInput(true);
+    	conn.setRequestProperty("Content-Type", "text/html");
+    	int result = conn.getResponseCode();
+    	System.out.println(result);
+    	
+    	Map m = conn.getHeaderFields();
+    	String cookies = "";
+    	 if(m.containsKey("Set-Cookie")) {
+	    	 Collection c = (Collection)m.get("Set-Cookie");
+	    	 for(Iterator i = c.iterator(); i.hasNext(); ) {
+	    		 cookies += (String)i.next();
+	    	 }
+    	 }
+    	conn = (HttpURLConnection)getConnection("http://localhost:8080/myhome/login/check.do", "http");
+    	conn.setRequestProperty("Cookie", cookies);
+    	BufferedReader reader = getReader(conn);
+    	String tmp;
+    	while( (tmp = reader.readLine()) != null )
+    		System.out.println(tmp);
     	
 	}
     
+    public static String getCookie(URLConnection conn){
+    	Map m = conn.getHeaderFields();
+    	String cookies = "";
+    	if(m.containsKey("Set-Cookie")) {
+		    Collection c = (Collection)m.get("Set-Cookie");
+		    for(Iterator i = c.iterator(); i.hasNext(); ) {
+		    cookies += (String)i.next();
+		    }
+    	}
+    	return cookies; 
+    }
+    
+    
     public static URLConnection setDefaultHeaders(URLConnection conn){
         //헤더값 추가 ( 해더값 없을시 403에러 내뱉는 사이트 있음)
+    	//헤더값 추가 ( 해더값 없을시 403에러 내뱉는 사이트 있음)
         conn.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
         conn.setRequestProperty("Accept-Charset", "windows-949,utf-8;q=0.7,*;q=0.3");
         conn.setRequestProperty("Accept-Encoding", "gzip,deflate,sdch");
         conn.setRequestProperty("Accept-Language", "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4");
         conn.setRequestProperty("Connection", "keep-alive");
         conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7");
-        conn.setRequestProperty("Cache-Control", "no-cache, no-store");
+
         return conn;
     }
     
@@ -62,7 +99,7 @@ public class URLConnectionUtil {
     	BufferedReader reader = new BufferedReader(new InputStreamReader(in));
     	return reader;
     }
-    public static URLConnection getHttpsConnection(String urlStr,String protocol)
+    public static URLConnection getConnection(String urlStr,String protocol)
         throws IOException, Exception {
         URL url = new URL(urlStr);
         URLConnection conn = null;
@@ -75,6 +112,21 @@ public class URLConnectionUtil {
         }
         return conn;
     }
+    
+    public static URLConnection getConnection(String urlStr,String protocol,String cookie)
+            throws IOException, Exception {
+            URL url = new URL(urlStr);
+            URLConnection conn = null;
+            if( protocol.equalsIgnoreCase("https"))  {
+            	conn = ( HttpsURLConnection )url.openConnection();
+            } else if( protocol.equalsIgnoreCase("http") ){
+            	conn = ( HttpURLConnection )url.openConnection();
+            } else {
+            	throw new Exception("http,https만가능합니다.");
+            }
+            conn.setRequestProperty("Cookie", cookie);
+            return conn;
+        }
     
     public static void downloadFile(String fileURL, String saveDir,String fileName)
             throws IOException {

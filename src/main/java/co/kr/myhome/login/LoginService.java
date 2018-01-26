@@ -19,16 +19,14 @@ public class LoginService {
 	@Autowired
 	CommonDAO commonDAO;
 	
-	public boolean hasUser(String user_id,String password){
+	public boolean hasUser(UserVO vo){
 		try{
-			UserVO vo = new UserVO();
-			vo.setUser_id(user_id);
-			vo.setPassword(SHA256Util.getEncryption(password));
-			commonDAO.selectOne("co.kr.myhome.user.hasUser",vo);
+			int result = (Integer)commonDAO.selectOne("co.kr.myhome.user.hasUser",vo);
+			if(result == 1) return true;
 		} catch(Exception e){
 			return false;
 		}
-		return true;
+		return false;
 	}
 	
 	public boolean memberJoin(UserVO vo) throws Exception{

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.LoggerContext;
@@ -37,20 +38,16 @@ public class LoginCtrl {
 	}
 	
 	@RequestMapping(value="/login/login.do",method= RequestMethod.POST)
-	public ModelAndView doLogin(String user_id,String password,HttpServletRequest request)
+	public ModelAndView doLogin(UserVO vo,HttpServletRequest request)
 	 throws Exception{
-		ModelAndView mav = new ModelAndView("/");
+		ModelAndView mav = new ModelAndView("/user/login");
 		System.out.println("login.do");
 		HttpSession session = getSession(request);
-		UserVO vo = new UserVO();
-		if ( loginService.hasUser(user_id, password) ){
-			vo.setUser_id(user_id);
-			
-			System.out.println("session user_id : "+session.getAttribute("user_id"));
-		} else {
-			
+		if ( loginService.hasUser(vo) ){
+			session.setAttribute("id", vo.getUser_id());
+			System.out.println("session user_id : "+session.getAttribute("id"));
 		}
-		doWriteLogin(session, vo);
+		System.out.println(session.getAttribute("id"));
 		return mav;
 	}
 	
@@ -66,6 +63,14 @@ public class LoginCtrl {
 		loginService.memberJoin(vo);
 		return mav;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/login/check.do")
+	public String check(HttpServletRequest request) throws Exception{
+		String result = (String) getSession(request).getAttribute("id");
+		return result;
+	}
+	
 	
 	private void doWriteLogin(HttpSession session,UserVO vo) throws Exception{
 		HashMap arg = new HashMap();

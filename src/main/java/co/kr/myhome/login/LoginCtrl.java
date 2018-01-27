@@ -40,7 +40,6 @@ public class LoginCtrl {
 	@RequestMapping(value="/login/login.do",method= RequestMethod.POST)
 	public ModelAndView doLogin(UserVO vo,HttpServletRequest request)
 	 throws Exception{
-		ModelAndView mav = new ModelAndView("/user/login");
 		System.out.println("login.do");
 		HttpSession session = getSession(request);
 		if ( loginService.hasUser(vo) ){
@@ -48,7 +47,7 @@ public class LoginCtrl {
 			System.out.println("session user_id : "+session.getAttribute("id"));
 		}
 		System.out.println(session.getAttribute("id"));
-		return mav;
+		return new ModelAndView("redirect:/login");
 	}
 	
 	@RequestMapping(value="/login/memberJoin")
@@ -70,6 +69,13 @@ public class LoginCtrl {
 		String result = (String) getSession(request).getAttribute("id");
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/login/logout.do")
+	public void doLogout(HttpSession session){
+		session.invalidate();
+	}
+	
 	
 	
 	private void doWriteLogin(HttpSession session,UserVO vo) throws Exception{

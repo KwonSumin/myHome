@@ -10,6 +10,7 @@
 		<config>src/main/resources/mybatis/user.xml</config>
 		<config>src/main/resources/log4j.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/mysql.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/spring-context.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>

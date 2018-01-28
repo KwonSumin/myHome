@@ -48,16 +48,18 @@
 			var li = document.createElement('li');
 			li.innerHTML = jsonList[i].title + ' / size : ' + jsonList[i].size;
 			li.setAttribute('data-id',jsonList[i].downId);
+			li.setAttribute('data-category',jsonList[i].category);
 			li.addEventListener('click',function(){
 				var downId = this.getAttribute('data-id');
 				var title = this.innerHTML.replace(/\/.*/,"").trim()+".torrent";
-				
+				var category = this.getAttribute('data-category');
 				$.ajax({
 			        url:"download.do",
 			        type:'GET',
 			        data: {
 			        	downId : downId,
-			        	title : title
+			        	title : title,
+			        	category : category
 		        	},
 			        success:function(data){
 						alert('성공');

@@ -35,9 +35,9 @@ public class URLConnectionUtil {
      * @throws IOException
      */
     public static void main(String[] args) throws Exception {
-		//String url = "https://torrentkim12.com/bbs/download.php?bo_table=torrent_variety&wr_id=853422&no=0";
-		//downloadFile(url,"c:/test/test","พฦดยวüดิ.torrent");
-		
+		String url = "https://torrentkim12.com/bbs/download.php?bo_table=torrent_variety&wr_id=853422&no=0";
+		downloadFile(url,"c:/test/test","พฦดยวüดิ.torrent");
+		/*
     	HttpURLConnection conn = (HttpURLConnection) getConnection("http://localhost:8080/myhome/login/login.do?user_id=admin&password=tnals1459", "http");
     	conn.setRequestMethod("POST");
     	conn.setDoInput(true);
@@ -59,7 +59,7 @@ public class URLConnectionUtil {
     	String tmp;
     	while( (tmp = reader.readLine()) != null )
     		System.out.println(tmp);
-    	
+    	*/
 	}
     
     public static String getCookie(URLConnection conn){

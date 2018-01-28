@@ -6,16 +6,26 @@ public class TorrentVO {
 		super();
 	}
 
-	public TorrentVO(String title, String downloadLink,String size) {
+	public TorrentVO(String title, String downloadLink,String size,String category) {
 		super();
 		this.title = title;
 		this.downId = downloadLink;
 		this.size = size;
+		this.category = category;
 	}
 	String title;
 	String downId;
 	String size;
+	String category;
 	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -42,7 +52,9 @@ public class TorrentVO {
 
 	@Override
 	public String toString() {
-		return "TorrentVO [title=" + title + ", downId=" + downId + ", size=" + size + "]\n";
+		return "TorrentVO [title=" + title + ", downId=" + downId + ", size=" + size + ", category=" + category + "]\n";
 	}
+
+	
 	
 }

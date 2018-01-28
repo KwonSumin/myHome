@@ -29,9 +29,11 @@ public class TorrentService {
 		Elements hits = doc.select("td.hit");
 		for(int i=0; i<elements.size(); i++) {
 			String[] href = elements.get(i).attr("href").split("/");
+			
 			String id = href[href.length-1].replaceAll(".html", ""); //id蔼 颇教
 			String size = hits.get(i+1).html();
-			result.add(new TorrentVO(elements.get(i).html(),id,size)); // 力格,id蔼
+			String category = href[1];
+			result.add(new TorrentVO(elements.get(i).html(),id,size,category)); // 力格,id蔼
 		}
 		return result;
 	}

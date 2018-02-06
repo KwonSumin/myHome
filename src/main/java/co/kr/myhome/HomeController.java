@@ -1,14 +1,8 @@
 package co.kr.myhome;
 
-import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.function.Function;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import co.kr.myhome.common.CommonDAO;
-import co.kr.myhome.login.LoginService;
-import co.kr.myhome.login.UserVO;
-import co.kr.utils.reflect.ReflectUtil;
 
 /**
  * Handles requests for the application home page.

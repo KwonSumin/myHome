@@ -19,18 +19,28 @@ public class CommonDAO {
 	public void close() throws Exception {
 		sqlSessionTemplate.close();
 	}
-	
 	public Object selectOne(String namespace,Object param) throws Exception{
 		return sqlSessionTemplate.selectOne(namespace, param);
 	}
 	public Object selectOne(String namespace) throws Exception{
 		return sqlSessionTemplate.selectOne(namespace);
 	}
-
 	public List selectList(String namespace,Object param) throws Exception{
 		return sqlSessionTemplate.selectList(namespace, param);
 	}
 	public List selectList(String namespace) throws Exception{
 		return sqlSessionTemplate.selectList(namespace);
+	}
+	public Object insert(String namespace) throws Exception{
+		return sqlSessionTemplate.insert(namespace);
+	}
+	public Object insert(String namespace,Object param) throws Exception{
+		return sqlSessionTemplate.insert(namespace,param);
+	}
+	public Object update(String namespace) throws Exception{
+		return sqlSessionTemplate.update(namespace);
+	}
+	public Object update(String namespace,Object param) throws Exception{
+		return sqlSessionTemplate.update(namespace,param);
 	}
 }

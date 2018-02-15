@@ -4,14 +4,21 @@ import java.sql.Connection;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import co.kr.utils.mybatis.vo.TestVO;
 
 @Repository
 public class CommonDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
+
 	
 	public Connection getConnection() throws Exception{
 		return sqlSessionTemplate.getConnection();

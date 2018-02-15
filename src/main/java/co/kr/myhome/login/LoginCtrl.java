@@ -78,11 +78,6 @@ public class LoginCtrl {
 	
 	
 	
-	private void doWriteLogin(HttpSession session,UserVO vo) throws Exception{
-		HashMap arg = new HashMap();
-		arg.put("vo", vo);
-		ReflectUtil.iteratorFiled(vo, arg);
-	}
 	
 	private HttpSession getSession(HttpServletRequest request){
 		return request.getSession();

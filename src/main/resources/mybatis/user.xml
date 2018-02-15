@@ -9,5 +9,8 @@
   		and password = #{password}
   </select>
   
+  <select resultType="HashMap" id="test">
+  	select * from users
+  </select>
   
 </mapper>

@@ -21,7 +21,7 @@ public class TorrentService {
 	public static ArrayList<TorrentVO> searchTorrent(String search) throws Exception{
 		ArrayList<TorrentVO> result = new ArrayList();
 
-		String rootPath = "https://torrentkim12.com/bbs/s.php";
+		String rootPath = "https://torrentkim.pro/bbs/s.php";
 		String query = "?k=" + search + "&b=&q=";
 		String url = rootPath + query;
 		Document doc = HTMLParserUtil.getDocument(url);

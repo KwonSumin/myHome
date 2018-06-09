@@ -35,31 +35,22 @@ public class URLConnectionUtil {
      * @throws IOException
      */
     public static void main(String[] args) throws Exception {
-		String url = "https://torrentkim12.com/bbs/download.php?bo_table=torrent_variety&wr_id=853422&no=0";
-		downloadFile(url,"c:/test/test","พฦดยวüดิ.torrent");
-		/*
-    	HttpURLConnection conn = (HttpURLConnection) getConnection("http://localhost:8080/myhome/login/login.do?user_id=admin&password=tnals1459", "http");
-    	conn.setRequestMethod("POST");
-    	conn.setDoInput(true);
-    	conn.setRequestProperty("Content-Type", "text/html");
-    	int result = conn.getResponseCode();
-    	System.out.println(result);
+		
+    	String url = "https://api.pushbullet.com/v2/users/me";
+    	HttpsURLConnection conn = (HttpsURLConnection) getConnection(url, "https");
+    	setDefaultHeaders(conn);
+    	String body = "";
+    	writeBody(conn, body);
+    	System.out.println(conn.getResponseCode());
+    	InputStream in = conn.getInputStream();
+    	BufferedReader rd = new BufferedReader(new InputStreamReader(in));
     	
-    	Map m = conn.getHeaderFields();
-    	String cookies = "";
-    	 if(m.containsKey("Set-Cookie")) {
-	    	 Collection c = (Collection)m.get("Set-Cookie");
-	    	 for(Iterator i = c.iterator(); i.hasNext(); ) {
-	    		 cookies += (String)i.next();
-	    	 }
-    	 }
-    	conn = (HttpURLConnection)getConnection("http://localhost:8080/myhome/login/check.do", "http");
-    	conn.setRequestProperty("Cookie", cookies);
-    	BufferedReader reader = getReader(conn);
     	String tmp;
-    	while( (tmp = reader.readLine()) != null )
-    		System.out.println(tmp);
-    	*/
+    	
+    	while( (tmp = rd.readLine()) != null ) System.out.println(tmp);
+    	
+    	System.out.println();
+    	
 	}
     
     public static String getCookie(URLConnection conn){

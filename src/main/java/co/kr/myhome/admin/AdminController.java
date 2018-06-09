@@ -22,4 +22,9 @@ public class AdminController {
 		return mav;
 	}
 	
+	
+	public boolean isAddmin() {
+		
+		return true;
+	}
 }

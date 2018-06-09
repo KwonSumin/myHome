@@ -18,5 +18,13 @@
 			<input type="submit" value="login"/>
 		</form>
 	</c:if>
+	<c:if test="${sessionScope.id == admin}">
+		
+		<ul>
+			<a href="${pageContext.request.contextPath}/torrent/index"><li>토렌트 다운</li></a>
+			<a href="${pageContext.request.contextPath}/ticketLink/index"><li>티켓링크 예매</li></a>
+		</ul>
+	
+	</c:if>
 </body>
 </html>
